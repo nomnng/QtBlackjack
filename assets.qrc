@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/">
+        <file>assets/fronts/Inverted.png</file>
+        <file>assets/backs/Black.png</file>
+        <file>assets/backs/Blue.png</file>
+        <file>assets/backs/Green.png</file>
+        <file>assets/backs/Red.png</file>
+        <file>assets/fronts/Default.png</file>
+    </qresource>
+</RCC>

@@ -16,6 +16,12 @@ set(PROJECT_SOURCES
         main.cpp
         mainwindow.cpp
         mainwindow.h
+        card.h
+        card_widget.h
+        card_widget.cpp
+        card_image_provider.h
+        card_image_provider.cpp
+        assets.qrc
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
