@@ -1,8 +1,10 @@
 #include "mainwindow.h"
 #include "card_image_provider.h"
+#include "card_widget.h"
 
 #include <QGridLayout>
 #include <QLabel>
+#include <QPushButton>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -28,9 +30,17 @@ MainWindow::MainWindow(QWidget *parent)
     cardFront->setScaledContents(true);
     cardFront->setPixmap(CardImageProvider::getCardImage(Card::Rank::Ace, Card::Suit::Diamonds));
 
+    CardWidget* cardWidget = new CardWidget(Card::Rank::Ace, Card::Suit::Diamonds, gameWidget);
+    cardWidget->move(440, 0);
+
     QWidget* buttonsWidget = new QWidget(this);
     buttonsWidget->setStyleSheet("background-color: #777;");
     layout->addWidget(buttonsWidget, 5, 0, 1, 1);
+
+    QPushButton* btn = new QPushButton("Test", buttonsWidget);
+    connect(btn, &QPushButton::clicked, cardWidget, [cardWidget](){
+        cardWidget->flip();
+    });
 }
 
 MainWindow::~MainWindow()
