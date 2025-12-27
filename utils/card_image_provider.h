@@ -1,7 +1,7 @@
 #ifndef CARDIMAGEPROVIDER_H
 #define CARDIMAGEPROVIDER_H
 
-#include "card.h"
+#include "game/card.h"
 
 #include <QObject>
 #include <QPixmap>

@@ -14,15 +14,15 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
 set(PROJECT_SOURCES
         main.cpp
-        mainwindow.cpp
-        mainwindow.h
-        card.h
-        card_widget.h
-        card_widget.cpp
-        card_image_provider.h
-        card_image_provider.cpp
-        control_buttons_widget.h
-        control_buttons_widget.cpp
+        widgets/main_window.cpp
+        widgets/main_window.h
+        widgets/card_widget.cpp
+        widgets/card_widget.h
+        widgets/control_buttons_widget.h
+        widgets/control_buttons_widget.cpp
+        game/card.h
+        utils/card_image_provider.h
+        utils/card_image_provider.cpp
         assets.qrc
 )
 
@@ -48,6 +48,11 @@ else()
         )
     endif()
 endif()
+
+target_include_directories(QtBlackjack PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+#target_include_directories(QtBlackjack PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/widgets)
+#target_include_directories(QtBlackjack PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/game)
+#target_include_directories(QtBlackjack PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/utils)
 
 target_link_libraries(QtBlackjack PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 

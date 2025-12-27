@@ -1,7 +1,7 @@
 #ifndef CARDWIDGET_H
 #define CARDWIDGET_H
 
-#include "card.h"
+#include "game/card.h"
 
 #include <QLabel>
 

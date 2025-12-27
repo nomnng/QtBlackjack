@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+#include "main_window.h"
 #include "card_widget.h"
 #include "control_buttons_widget.h"
 

@@ -1,5 +1,5 @@
 #include "card_widget.h"
-#include "card_image_provider.h"
+#include "utils/card_image_provider.h"
 
 #include <QPropertyAnimation>
 
