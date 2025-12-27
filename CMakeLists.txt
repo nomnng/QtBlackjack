@@ -21,6 +21,8 @@ set(PROJECT_SOURCES
         card_widget.cpp
         card_image_provider.h
         card_image_provider.cpp
+        control_buttons_widget.h
+        control_buttons_widget.cpp
         assets.qrc
 )
 

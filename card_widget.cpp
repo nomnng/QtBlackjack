@@ -7,6 +7,7 @@ CardWidget::CardWidget(Card::Rank r, Card::Suit s, QWidget *parent)
     : QLabel{parent}, rank(r), suit(s), frontVisible(false)
 {
     setScaledContents(true);
+    setAttribute(Qt::WA_TranslucentBackground); // needed to properly draw transparent parts
     resize(WIDTH, HEIGHT);
     updateCardImage();
 }
@@ -34,6 +35,15 @@ void CardWidget::flip()
         frontVisible = !frontVisible;
         updateCardImage();
     });
+}
+
+void CardWidget::animatedMove(int dstX, int dstY)
+{
+    QPropertyAnimation *animation = new QPropertyAnimation(this, "pos");
+    animation->setDuration(ANIMATION_DURATION);
+    animation->setStartValue(pos());
+    animation->setEndValue(QPoint(dstX, dstY));
+    animation->start(QAbstractAnimation::DeleteWhenStopped);
 }
 
 void CardWidget::updateCardImage()

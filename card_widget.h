@@ -11,14 +11,15 @@ class CardWidget : public QLabel
 public:
     explicit CardWidget(Card::Rank r, Card::Suit s, QWidget *parent = nullptr);
     void flip();
+    void animatedMove(int dstX, int dstY);
 
 signals:
 
 private:
     void updateCardImage();
 
-    static constexpr int WIDTH = 200;
-    static constexpr int HEIGHT = 300;
+    static constexpr int WIDTH = 100;
+    static constexpr int HEIGHT = 150;
     static constexpr int ANIMATION_DURATION = 300;
 
     Card::Rank rank;

@@ -1,6 +1,6 @@
 #include "mainwindow.h"
-#include "card_image_provider.h"
 #include "card_widget.h"
+#include "control_buttons_widget.h"
 
 #include <QGridLayout>
 #include <QLabel>
@@ -22,23 +22,18 @@ MainWindow::MainWindow(QWidget *parent)
     gameWidget->setStyleSheet("background-color: #274;");
     layout->addWidget(gameWidget, 0, 0, 5, 1);
 
-    QLabel *cardBack = new QLabel(gameWidget);
-    cardBack->setPixmap(CardImageProvider::getBackImage());
-
-    QLabel *cardFront = new QLabel(gameWidget);
-    cardFront->setGeometry(220, 0, 200, 300);
-    cardFront->setScaledContents(true);
-    cardFront->setPixmap(CardImageProvider::getCardImage(Card::Rank::Ace, Card::Suit::Diamonds));
-
     CardWidget* cardWidget = new CardWidget(Card::Rank::Ace, Card::Suit::Diamonds, gameWidget);
-    cardWidget->move(440, 0);
+    cardWidget->move(0, 0);
 
-    QWidget* buttonsWidget = new QWidget(this);
+    ControlButtonsWidget* buttonsWidget = new ControlButtonsWidget(this);
     buttonsWidget->setStyleSheet("background-color: #777;");
     layout->addWidget(buttonsWidget, 5, 0, 1, 1);
 
-    QPushButton* btn = new QPushButton("Test", buttonsWidget);
-    connect(btn, &QPushButton::clicked, cardWidget, [cardWidget](){
+    buttonsWidget->createButton("Move", cardWidget, [cardWidget](){
+        cardWidget->animatedMove(cardWidget->x() + 100, cardWidget->y() + 100);
+    });
+
+    buttonsWidget->createButton("Flip", cardWidget, [cardWidget](){
         cardWidget->flip();
     });
 }
