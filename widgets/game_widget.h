@@ -2,6 +2,7 @@
 #define GAMEWIDGET_H
 
 #include "game/blackjack.h"
+#include "control_buttons_widget.h"
 
 #include <QWidget>
 #include <QGridLayout>
@@ -13,20 +14,24 @@ public:
     explicit GameWidget(QWidget *parent = nullptr);
 
 public slots:
-    void startGame(int bet);
+    void setBet(int bet);
 
 signals:
 
 private:
     void showBetSelectionPopup();
+    void startNewGame();
 
     QGridLayout* layout;
+    ControlButtonsWidget* controlButtonsWidget;
+    QWidget* tableWidget;
 
     Blackjack blackjack;
 
     static constexpr int BET_STEP = 25;
+    static constexpr int START_BANKROLL = 1000;
     int currentBet;
-    int bankroll = 500;
+    int bankroll;
 
 };
 

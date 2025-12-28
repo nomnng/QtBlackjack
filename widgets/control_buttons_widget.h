@@ -4,18 +4,21 @@
 #include <functional>
 #include <QWidget>
 #include <QHBoxLayout>
+#include <QLabel>
 
 class ControlButtonsWidget : public QWidget
 {
     Q_OBJECT
 public:
     explicit ControlButtonsWidget(QWidget *parent = nullptr);
-    void createButton(QString text, QObject *receiver, std::function<void()> onClick);
+    void addButton(QString text, QObject *receiver, std::function<void()> onClick);
+    void setBetInfo(int bet, int bankroll);
 
 signals:
 
 private:
     QHBoxLayout* layout;
+    QLabel* infoLabel;
 
 };
 

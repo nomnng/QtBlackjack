@@ -3,39 +3,45 @@
 #include "bet_selection_popup.h"
 
 GameWidget::GameWidget(QWidget *parent)
-    : QWidget{parent}
+    : QWidget{parent}, layout(new QGridLayout()), tableWidget(new QWidget(this)),
+      controlButtonsWidget(new ControlButtonsWidget(this))
 {
-    layout = new QGridLayout();
     setLayout(layout);
 
     setAttribute(Qt::WA_StyledBackground, true);
     setStyleSheet("background-color: #444;");
 
-    QWidget* tableWidget = new QWidget(this);
     tableWidget->setStyleSheet("background-color: #274;");
     layout->addWidget(tableWidget, 0, 0, 5, 1);
 
-    ControlButtonsWidget* controlButtonsWidget = new ControlButtonsWidget(this);
     layout->addWidget(controlButtonsWidget, 5, 0, 1, 1);
 
-    controlButtonsWidget->createButton("Stand", this, [](){
+    controlButtonsWidget->addButton("Stand", this, [](){
     });
-    controlButtonsWidget->createButton("Hit", this, [](){
+    controlButtonsWidget->addButton("Hit", this, [](){
     });
-    controlButtonsWidget->createButton("Settings", this, [this](){
+    controlButtonsWidget->addButton("Settings", this, [this](){
     });
 
-    showBetSelectionPopup();
+    startNewGame();
 }
 
-void GameWidget::startGame(int bet)
+void GameWidget::setBet(int bet)
 {
-    qDebug() << "Starting game, bet: " << bet;
+    bankroll -= bet;
+    currentBet = bet;
+    controlButtonsWidget->setBetInfo(bet, bankroll);
 }
 
 void GameWidget::showBetSelectionPopup()
 {
-    BetSelectionPopup* popupWidget = new BetSelectionPopup(10000, BET_STEP, this);
+    BetSelectionPopup* popupWidget = new BetSelectionPopup(bankroll, BET_STEP, this);
     layout->addWidget(popupWidget, 0, 0, 6, 1);
-    connect(popupWidget, &BetSelectionPopup::betSelected, this, &GameWidget::startGame);
+    connect(popupWidget, &BetSelectionPopup::betSelected, this, &GameWidget::setBet);
+}
+
+void GameWidget::startNewGame()
+{
+    bankroll = START_BANKROLL;
+    showBetSelectionPopup();
 }
