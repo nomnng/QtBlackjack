@@ -3,8 +3,8 @@
 
 #include <QPropertyAnimation>
 
-CardWidget::CardWidget(Card::Rank r, Card::Suit s, QWidget *parent)
-    : QLabel{parent}, rank(r), suit(s), frontVisible(false)
+CardWidget::CardWidget(Card c, QWidget *parent)
+    : QLabel{parent}, card(c), frontVisible(false)
 {
     setScaledContents(true);
     setAttribute(Qt::WA_TranslucentBackground); // needed to properly draw transparent parts
@@ -20,14 +20,14 @@ void CardWidget::flip()
     endValue.setX(endValue.x() + WIDTH); // adding full width instead of half to compensate for shrinking width
 
     QPropertyAnimation *firstAnimation = new QPropertyAnimation(this, "geometry");
-    firstAnimation->setDuration(ANIMATION_DURATION);
+    firstAnimation->setDuration(ANIMATION_DURATION / 2);
     firstAnimation->setStartValue(startValue);
     firstAnimation->setEndValue(endValue);
     firstAnimation->start(QAbstractAnimation::DeleteWhenStopped);
 
     connect(firstAnimation, &QPropertyAnimation::finished, this, [this, startValue, endValue]() {
         QPropertyAnimation *secondAnimation = new QPropertyAnimation(this, "geometry");
-        secondAnimation->setDuration(ANIMATION_DURATION);
+        secondAnimation->setDuration(ANIMATION_DURATION / 2);
         secondAnimation->setStartValue(endValue);
         secondAnimation->setEndValue(startValue);
         secondAnimation->start(QAbstractAnimation::DeleteWhenStopped);
@@ -48,6 +48,6 @@ void CardWidget::animatedMove(int dstX, int dstY)
 
 void CardWidget::updateCardImage()
 {
-    QPixmap pixmap = frontVisible ? CardImageProvider::getCardImage(rank, suit) : CardImageProvider::getBackImage();
+    QPixmap pixmap = frontVisible ? CardImageProvider::getCardImage(card) : CardImageProvider::getBackImage();
     setPixmap(pixmap);
 }

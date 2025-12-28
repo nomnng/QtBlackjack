@@ -30,15 +30,15 @@ const void CardImageProvider::setFrontAtlasImage(QString name)
     instance().frontAtlasPixmap.load(filepath);
 }
 
-const QPixmap CardImageProvider::getCardImage(Card::Rank rank, Card::Suit suit)
+const QPixmap CardImageProvider::getCardImage(Card card)
 {
     CardImageProvider &inst = instance();
     if (inst.frontAtlasPixmap.isNull()) {
         setFrontAtlasImage(inst.frontImageList[0]);
     }
 
-    int rankIndex = static_cast<int>(rank) - static_cast<int>(Card::Rank::Two);
-    int suitIndex = static_cast<int>(suit) - static_cast<int>(Card::Suit::Clubs);
+    int rankIndex = static_cast<int>(card.rank) - static_cast<int>(Card::Rank::Two);
+    int suitIndex = static_cast<int>(card.suit) - static_cast<int>(Card::Suit::Clubs);
     int x = rankIndex * CARD_WIDTH;
     int y = suitIndex * CARD_HEIGHT;
     return inst.frontAtlasPixmap.copy(x, y, CARD_WIDTH, CARD_HEIGHT);

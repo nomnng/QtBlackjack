@@ -18,7 +18,7 @@ public:
 
     static const void setBackImage(QString name);
     static const void setFrontAtlasImage(QString name);
-    static const QPixmap getCardImage(Card::Rank rank, Card::Suit suit);
+    static const QPixmap getCardImage(Card card);
     static const QPixmap& getBackImage();
 
 signals:

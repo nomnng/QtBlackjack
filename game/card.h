@@ -1,12 +1,15 @@
 #ifndef CARD_H
 #define CARD_H
 
-namespace Card {
+struct Card {
     enum class Suit {
         Clubs = 1,
         Diamonds,
         Hearts,
-        Spades
+        Spades,
+
+        Start = Clubs,
+        End = Spades
     };
 
     enum class Rank {
@@ -22,8 +25,21 @@ namespace Card {
         Jack,
         Queen,
         King,
-        Ace
+        Ace,
+
+        Start = Two,
+        End = Ace
     };
+
+
+    Rank rank;
+    Suit suit;
 };
+
+Card::Rank& operator++(Card::Rank& r);
+Card::Rank operator++(Card::Rank& r, int);
+Card::Suit& operator++(Card::Suit& s);
+Card::Suit operator++(Card::Suit& s, int);
+
 
 #endif // CARD_H

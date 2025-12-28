@@ -9,7 +9,7 @@ class CardWidget : public QLabel
 {
     Q_OBJECT
 public:
-    explicit CardWidget(Card::Rank r, Card::Suit s, QWidget *parent = nullptr);
+    explicit CardWidget(Card c, QWidget *parent = nullptr);
     void flip();
     void animatedMove(int dstX, int dstY);
 
@@ -20,10 +20,9 @@ private:
 
     static constexpr int WIDTH = 100;
     static constexpr int HEIGHT = 150;
-    static constexpr int ANIMATION_DURATION = 300;
+    static constexpr int ANIMATION_DURATION = 200;
 
-    Card::Rank rank;
-    Card::Suit suit;
+    Card card;
 
     bool frontVisible;
 };

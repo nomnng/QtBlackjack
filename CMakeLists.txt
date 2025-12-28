@@ -20,7 +20,16 @@ set(PROJECT_SOURCES
         widgets/card_widget.h
         widgets/control_buttons_widget.h
         widgets/control_buttons_widget.cpp
+        widgets/game_widget.h
+        widgets/game_widget.cpp
+        widgets/popup_widget.h
+        widgets/popup_widget.cpp
+        widgets/bet_selection_popup.h
+        widgets/bet_selection_popup.cpp
         game/card.h
+        game/card.cpp
+        game/blackjack.h
+        game/blackjack.cpp
         utils/card_image_provider.h
         utils/card_image_provider.cpp
         assets.qrc
