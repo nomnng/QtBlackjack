@@ -58,22 +58,34 @@ Blackjack::GameStatus Blackjack::playerHit()
 Blackjack::GameStatus Blackjack::dealerHit()
 {
     dealerCards.append(takeCard());
-    int dealerCardValue = countDealerCards();
-    if (countDealerCards() <= 16) {
+    if (!dealerIsDone()) {
         return GameStatus::InProgress;
     }
 
+    return getGameResult();
+}
+
+bool Blackjack::dealerIsDone()
+{
+    return countDealerCards() > 16;
+}
+
+Blackjack::GameStatus Blackjack::getGameResult()
+{
+    int dealerCardValue = countDealerCards();
     int playerCardValue = countPlayerCards();
 
     if (dealerCardValue == playerCardValue) {
         return GameStatus::Draw;
+    } else if (playerCardValue > 21) {
+        return GameStatus::DealerWon;
+    } else if (dealerCardValue > 21) {
+        return GameStatus::PlayerWon;
+    } else if (playerCardValue > dealerCardValue) {
+        return GameStatus::PlayerWon;
     }
 
-    if (playerCardValue > dealerCardValue) {
-        return GameStatus::PlayerWon;
-    } else {
-        return GameStatus::DealerWon;
-    }
+    return GameStatus::DealerWon;
 }
 
 void Blackjack::shuffleDeck()

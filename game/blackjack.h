@@ -25,6 +25,8 @@ public:
     int countDealerCards();
     GameStatus playerHit();
     GameStatus dealerHit();
+    bool dealerIsDone();
+    GameStatus getGameResult();
 
 signals:
 

@@ -1,6 +1,7 @@
 #include "game_widget.h"
 #include "control_buttons_widget.h"
 #include "bet_selection_popup.h"
+#include "info_popup.h"
 
 #include <QTimer>
 
@@ -110,14 +111,15 @@ void GameWidget::hitClicked()
         return;
     }
 
-    tableWidget->tossLastCardToPlayer();
-    Card card = blackjack->getNextCard();
-    tableWidget->createCardWidget(card);
-
     if (blackjack->playerHit() == Blackjack::GameStatus::DealerWon) {
         playerTurnEnded = true;
         endRound();
     }
+
+    tableWidget->tossLastCardToPlayer();
+    Card card = blackjack->getNextCard();
+    tableWidget->createCardWidget(card);
+
     updatePlayerCardValue();
 }
 
@@ -138,10 +140,42 @@ void GameWidget::standClicked()
 void GameWidget::endRound()
 {
     updateDealerCardValue();
+
+    Blackjack::GameStatus result = blackjack->getGameResult();
+    QString text;
+    if (result == Blackjack::GameStatus::Draw) {
+        text = "Draw! Press OK to stand next round.";
+        bankroll += currentBet;
+    } else if (result == Blackjack::GameStatus::DealerWon) {
+        if (bankroll < BET_STEP) {
+            bankroll = START_BANKROLL;
+            text = QString("GAME OVER! You lost all your money. Press OK to start a new game.");
+        } else {
+            text = QString("You lost! Money: -%1").arg(currentBet);
+        }
+    } else if (result == Blackjack::GameStatus::PlayerWon) {
+        text = QString("You won! Money: +%1. Press OK to stand next round.").arg(currentBet);
+        bankroll += currentBet * 2;
+    }
+
+    InfoPopup* popupWidget = new InfoPopup(text, this);
+    layout->addWidget(popupWidget, 2, 0, 1, 1);
+
+    connect(popupWidget, &InfoPopup::acknowledged, this, [this](){
+        tableWidget->deleteLater();
+        tableWidget = new TableWidget(this);
+        showBetSelectionPopup();
+        layout->addWidget(tableWidget, 0, 0, 5, 1);
+    });
 }
 
 void GameWidget::dealerHit()
 {
+    if (blackjack->dealerIsDone()) {
+        endRound();
+        return;
+    }
+
     QTimer::singleShot(500, tableWidget, [this](){
         tableWidget->tossLastCardToDealer();
         Card card = blackjack->getNextCard();

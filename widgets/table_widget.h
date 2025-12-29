@@ -19,6 +19,7 @@ public:
     void updatePlayerCardValue(int value);
     void updateDealerCardValue(int value);
     void flipDealerHiddenCard();
+    void setInfoLabelText(const QString& text);
 
 signals:
 
