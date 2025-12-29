@@ -10,6 +10,14 @@ CardWidget::CardWidget(Card c, QWidget *parent)
     setAttribute(Qt::WA_TranslucentBackground); // needed to properly draw transparent parts
     resize(WIDTH, HEIGHT);
     updateCardImage();
+
+    connect(&CardImageProvider::instance(), &CardImageProvider::cardFrontChanged, this, [this](){
+        updateCardImage();
+    });
+
+    connect(&CardImageProvider::instance(), &CardImageProvider::cardBackChanged, this, [this](){
+        updateCardImage();
+    });
 }
 
 void CardWidget::flip()

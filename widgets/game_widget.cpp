@@ -2,6 +2,7 @@
 #include "control_buttons_widget.h"
 #include "bet_selection_popup.h"
 #include "info_popup.h"
+#include "settings_popup.h"
 
 #include <QTimer>
 
@@ -25,6 +26,7 @@ GameWidget::GameWidget(QWidget *parent)
         hitClicked();
     });
     controlButtonsWidget->addButton("Settings", this, [this](){
+        openSettingsPopup();
     });
 
     startNewGame();
@@ -187,4 +189,10 @@ void GameWidget::dealerHit()
             endRound();
         }
     });
+}
+
+void GameWidget::openSettingsPopup()
+{
+    SettingsPopup* settingsPopup = new SettingsPopup(this);
+    layout->addWidget(settingsPopup, 0, 0, 5, 1);
 }

@@ -30,6 +30,8 @@ set(PROJECT_SOURCES
         widgets/table_widget.cpp
         widgets/info_popup.h
         widgets/info_popup.cpp
+        widgets/settings_popup.h
+        widgets/settings_popup.cpp
         game/card.h
         game/card.cpp
         game/blackjack.h

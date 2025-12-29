@@ -18,23 +18,25 @@ const QStringList &CardImageProvider::getBackOptions()
     return instance().backImageList;
 }
 
-const void CardImageProvider::setBackImage(QString name)
+void CardImageProvider::setBackImage(QString name)
 {
     QString filepath = QDir::cleanPath(QString(BACKS_PATH) + "/" + name + "." + IMAGE_EXTENSION);
     instance().backPixmap.load(filepath);
+    emit cardBackChanged();
 }
 
-const void CardImageProvider::setFrontAtlasImage(QString name)
+void CardImageProvider::setFrontAtlasImage(QString name)
 {
     QString filepath = QDir::cleanPath(QString(FRONTS_PATH) + "/" + name + "." + IMAGE_EXTENSION);
     instance().frontAtlasPixmap.load(filepath);
+    emit cardFrontChanged();
 }
 
 const QPixmap CardImageProvider::getCardImage(Card card)
 {
     CardImageProvider &inst = instance();
     if (inst.frontAtlasPixmap.isNull()) {
-        setFrontAtlasImage(inst.frontImageList[0]);
+        inst.setFrontAtlasImage(inst.frontImageList[0]);
     }
 
     int rankIndex = static_cast<int>(card.rank) - static_cast<int>(Card::Rank::Two);
@@ -48,7 +50,7 @@ const QPixmap &CardImageProvider::getBackImage()
 {
     CardImageProvider &inst = instance();
     if (inst.backPixmap.isNull()) {
-        setBackImage(inst.backImageList[0]);
+        inst.setBackImage(inst.backImageList[0]);
     }
 
     return inst.backPixmap;

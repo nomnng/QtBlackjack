@@ -16,8 +16,8 @@ public:
     static const QStringList& getFrontOptions();
     static const QStringList& getBackOptions();
 
-    static const void setBackImage(QString name);
-    static const void setFrontAtlasImage(QString name);
+    void setBackImage(QString name);
+    void setFrontAtlasImage(QString name);
     static const QPixmap getCardImage(Card card);
     static const QPixmap& getBackImage();
 

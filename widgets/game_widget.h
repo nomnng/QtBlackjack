@@ -29,6 +29,7 @@ private:
     void standClicked();
     void endRound();
     void dealerHit();
+    void openSettingsPopup();
 
     QGridLayout* layout;
     ControlButtonsWidget* controlButtonsWidget;
