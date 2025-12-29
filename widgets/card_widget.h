@@ -4,6 +4,7 @@
 #include "game/card.h"
 
 #include <QLabel>
+#include <functional>
 
 class CardWidget : public QLabel
 {
@@ -11,7 +12,9 @@ class CardWidget : public QLabel
 public:
     explicit CardWidget(Card c, QWidget *parent = nullptr);
     void flip();
-    void animatedMove(int dstX, int dstY);
+    bool isFaceUp();
+    void animatedMove(int dstX, int dstY, std::function<void()> onEnd = nullptr);
+    void animatedMoveAndFlip(int dstX, int dstY);
 
 signals:
 

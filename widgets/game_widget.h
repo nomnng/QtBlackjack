@@ -3,6 +3,7 @@
 
 #include "game/blackjack.h"
 #include "control_buttons_widget.h"
+#include "table_widget.h"
 
 #include <QWidget>
 #include <QGridLayout>
@@ -21,18 +22,25 @@ signals:
 private:
     void showBetSelectionPopup();
     void startNewGame();
+    void dealStartCards();
+    void updatePlayerCardValue();
+    void updateDealerCardValue();
+    void hitClicked();
+    void standClicked();
+    void endRound();
+    void dealerHit();
 
     QGridLayout* layout;
     ControlButtonsWidget* controlButtonsWidget;
-    QWidget* tableWidget;
+    TableWidget* tableWidget;
 
-    Blackjack blackjack;
+    Blackjack* blackjack;
 
     static constexpr int BET_STEP = 25;
     static constexpr int START_BANKROLL = 1000;
     int currentBet;
     int bankroll;
-
+    bool playerTurnEnded;
 };
 
 #endif // GAMEWIDGET_H

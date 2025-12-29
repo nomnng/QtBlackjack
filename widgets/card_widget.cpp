@@ -37,14 +37,31 @@ void CardWidget::flip()
     });
 }
 
-void CardWidget::animatedMove(int dstX, int dstY)
+bool CardWidget::isFaceUp()
+{
+    return frontVisible;
+}
+
+void CardWidget::animatedMove(int dstX, int dstY, std::function<void()> onEnd)
 {
     QPropertyAnimation *animation = new QPropertyAnimation(this, "pos");
     animation->setDuration(ANIMATION_DURATION);
     animation->setStartValue(pos());
     animation->setEndValue(QPoint(dstX, dstY));
     animation->start(QAbstractAnimation::DeleteWhenStopped);
+
+    if (onEnd) {
+        connect(animation, &QPropertyAnimation::finished, this, onEnd);
+    }
 }
+
+void CardWidget::animatedMoveAndFlip(int dstX, int dstY)
+{
+    animatedMove(dstX, dstY, [this](){
+        flip();
+    });
+}
+
 
 void CardWidget::updateCardImage()
 {

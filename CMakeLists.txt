@@ -26,6 +26,8 @@ set(PROJECT_SOURCES
         widgets/popup_widget.cpp
         widgets/bet_selection_popup.h
         widgets/bet_selection_popup.cpp
+        widgets/table_widget.h
+        widgets/table_widget.cpp
         game/card.h
         game/card.cpp
         game/blackjack.h
