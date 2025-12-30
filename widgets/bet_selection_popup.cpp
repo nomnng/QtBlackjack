@@ -1,4 +1,5 @@
 #include "bet_selection_popup.h"
+#include "utils/audio_manager.h"
 
 #include <QPushButton>
 #include <QHBoxLayout>
@@ -46,6 +47,8 @@ void BetSelectionPopup::setupContent(QWidget *parent)
 
 void BetSelectionPopup::increaseBet()
 {
+    AudioManager::playButtonSound();
+
     if ((currentBet + betStep) > maxBet) {
         return;
     }
@@ -55,6 +58,8 @@ void BetSelectionPopup::increaseBet()
 
 void BetSelectionPopup::decreaseBet()
 {
+    AudioManager::playButtonSound();
+
     if (currentBet <= betStep) {
         return;
     }

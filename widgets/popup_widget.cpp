@@ -1,4 +1,5 @@
 #include "popup_widget.h"
+#include "utils/audio_manager.h"
 
 #include <QPushButton>
 #include <QStyle>
@@ -31,4 +32,5 @@ PopupWidget::PopupWidget(QWidget *parent)
 void PopupWidget::okPressed()
 {
     deleteLater();
+    AudioManager::playButtonSound();
 }

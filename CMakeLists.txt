@@ -11,6 +11,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Multimedia)
 
 set(PROJECT_SOURCES
         main.cpp
@@ -38,6 +39,8 @@ set(PROJECT_SOURCES
         game/blackjack.cpp
         utils/card_image_provider.h
         utils/card_image_provider.cpp
+        utils/audio_manager.h
+        utils/audio_manager.cpp
         assets.qrc
 )
 
@@ -65,11 +68,9 @@ else()
 endif()
 
 target_include_directories(QtBlackjack PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
-#target_include_directories(QtBlackjack PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/widgets)
-#target_include_directories(QtBlackjack PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/game)
-#target_include_directories(QtBlackjack PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/utils)
 
 target_link_libraries(QtBlackjack PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(QtBlackjack PRIVATE Qt${QT_VERSION_MAJOR}::Multimedia)
 
 set_target_properties(QtBlackjack PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com

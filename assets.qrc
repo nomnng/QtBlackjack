@@ -6,5 +6,8 @@
         <file>assets/backs/Green.png</file>
         <file>assets/backs/Red.png</file>
         <file>assets/fronts/Default.png</file>
+        <file>assets/audio/button.wav</file>
+        <file>assets/audio/card.wav</file>
+        <file>assets/audio/bg.wav</file>
     </qresource>
 </RCC>

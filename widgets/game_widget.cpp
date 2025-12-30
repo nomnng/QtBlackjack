@@ -3,6 +3,7 @@
 #include "bet_selection_popup.h"
 #include "info_popup.h"
 #include "settings_popup.h"
+#include "utils/audio_manager.h"
 
 #include <QTimer>
 
@@ -20,15 +21,20 @@ GameWidget::GameWidget(QWidget *parent)
     layout->addWidget(tableWidget, 0, 0, 5, 1);
 
     controlButtonsWidget->addButton("Stand", this, [this](){
+        AudioManager::playButtonSound();
         standClicked();
     });
     controlButtonsWidget->addButton("Hit", this, [this](){
+        AudioManager::playButtonSound();
         hitClicked();
     });
     controlButtonsWidget->addButton("Settings", this, [this](){
+        AudioManager::playButtonSound();
         openSettingsPopup();
     });
 
+    AudioManager::setVolume(0.2);
+    AudioManager::startBgMusic();
     startNewGame();
 }
 

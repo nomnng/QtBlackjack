@@ -1,4 +1,5 @@
 #include "table_widget.h"
+#include "utils/audio_manager.h"
 
 TableWidget::TableWidget(QWidget *parent)
     : QWidget{parent}, dealerCardValueLabel(new QLabel(this)), playerCardValueLabel(new QLabel(this))
@@ -26,6 +27,8 @@ CardWidget *TableWidget::createCardWidget(Card card)
 
 void TableWidget::tossCardToDealer(CardWidget *cardWidget, bool flip)
 {
+    AudioManager::playCardSound();
+
     int x = width() * 0.35 + 30 * dealerCardWidgets.size();
     int y = height() * 0.05 + 5 * dealerCardWidgets.size();
     if (flip) {
@@ -38,6 +41,8 @@ void TableWidget::tossCardToDealer(CardWidget *cardWidget, bool flip)
 
 void TableWidget::tossCardToPlayer(CardWidget *cardWidget, bool flip)
 {
+    AudioManager::playCardSound();
+
     int x = width() * 0.35 + 30 * playerCardWidgets.size();
     int y = height() * 0.6 + 5 * playerCardWidgets.size();
     if (flip) {

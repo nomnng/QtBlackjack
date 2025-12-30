@@ -2,6 +2,12 @@
 
 #include <QDir>
 
+CardImageProvider::CardImageProvider(QObject* parent) : QObject(parent)
+{
+    updateImageList(FRONTS_PATH, frontImageList);
+    updateImageList(BACKS_PATH, backImageList);
+}
+
 CardImageProvider &CardImageProvider::instance()
 {
     static CardImageProvider _instance;
@@ -56,11 +62,6 @@ const QPixmap &CardImageProvider::getBackImage()
     return inst.backPixmap;
 }
 
-CardImageProvider::CardImageProvider(QObject* parent) : QObject(parent)
-{
-    updateImageList(FRONTS_PATH, frontImageList);
-    updateImageList(BACKS_PATH, backImageList);
-}
 
 void CardImageProvider::updateImageList(QString path, QStringList &list) {
     QDir dir(path);
